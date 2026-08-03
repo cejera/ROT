@@ -1,6 +1,6 @@
 /*
  * kernel_log.c
- * Implementação do sistema de logging do kernel ROT
+ * Implementacao do sistema de logging do kernel ROT
  */
 #include <stdio.h>
 #include <stdarg.h>

@@ -1,22 +1,21 @@
 /*
  * rot_main_entry.c
- * Ponto de entrada (main) para o kernel ROT
+ * Main entry point for ROT kernel
  */
 #include <stdio.h>
 
-/* Forward declaration */
 int rot_main(void);
 
 int main(int argc, char *argv[]) {
     (void)argc;
     (void)argv;
     
-    printf("=== ROT KERNEL BOOTSTRAP ===");
-    printf("Iniciando ΚAIΡΟΦΥΛΑΞ...\n\n");
+    printf("=== ROT KERNEL BOOTSTRAP ===\n");
+    printf("Iniciando KAIROPHYLAX...\n\n");
     
     int result = rot_main();
     
-    printf("\n=== ROT EXECUTION COMPLETE ===");
+    printf("\n=== ROT EXECUTION COMPLETE ===\n");
     printf("Exit code: %d\n", result);
     
     return result;

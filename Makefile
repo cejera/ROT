@@ -35,7 +35,7 @@ clean:
 	rm -f $(TARGET) $(SUPPORT_OBJS)
 	@echo "[OK] Limpeza completa"
 
-# Execução
+# Execucao
 run: all
 	./$(TARGET)
 
