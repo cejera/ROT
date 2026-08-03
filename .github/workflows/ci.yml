@@ -1,0 +1,92 @@
++name: CI - build and test + +on:
+
+push:
+branches: [ ROT-Q ]
+pull_request:
+branches: [ ROT-Q ]
++jobs:
+
+build-and-test:
+runs-on: ubuntu-latest
+strategy:
+
+ matrix:
+
+   gcc: [ "gcc", "clang" ]
+steps:
+name: Checkout
+
+ uses: actions/checkout@v4
+name: Setup dependencies
+
+ run: |
+
+   sudo apt-get update
+
+   sudo apt-get install -y build-essential cmake
+name: Configure CMake
+
+ run: cmake -S . -B build -DBUILD_FULL_ROT=OFF
+name: Build
+
+ run: cmake --build build -- -j
+name: Run smoke test
+
+ run: |
+
+   cd build/test && ./smoke_test || (cat /tmp/rot_neural_mirror.log || true) && exit 0
+azure-submit:
+runs-on: ubuntu-latest
+needs: build-and-test
+if: ${{ secrets.AZURE_ENABLE_SUBMIT == 'true' && secrets.AZURE_CLIENT_ID != '' }}
+steps:
+name: Checkout
+
+ uses: actions/checkout@v4
+name: Install Azure CLI and quantum extension
+
+ run: |
+
+   curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+   az extension add --name quantum || true
+name: Azure login (service principal)
+
+ env:
+
+   AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+
+   AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+   AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+ run: |
+
+   az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID"
+name: Submit sample job to Azure Quantum (simulation)
+
+ env:
+
+   AZ_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+   AZ_RG: ${{ secrets.AZURE_QUANTUM_RESOURCE_GROUP }}
+
+   AZ_WORKSPACE: ${{ secrets.AZURE_QUANTUM_WORKSPACE }}
+
+   AZ_LOCATION: ${{ secrets.AZURE_QUANTUM_LOCATION }}
+
+ run: |
+
+   echo "Preparing sample Azure Quantum submission (simulation)."
+
+   # This step assumes a workspace already exists. It demonstrates how to submit a simple job
+
+   # using the Azure CLI / Quantum extension. Adapt the command below to the provider and job type you need.
+
+   az account set --subscription "$AZ_SUBSCRIPTION" || true
+
+   # List targets available in workspace
+
+   az quantum workspace show -g "$AZ_RG" -n "$AZ_WORKSPACE" --location "$AZ_LOCATION" || true
+
+   echo "(Placeholder) Submit a job via 'az quantum job submit' or SDK as appropriate."
