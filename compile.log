@@ -1,0 +1,98 @@
+Using built-in specs.
+COLLECT_GCC=g++
+COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-linux-gnu/15/lto-wrapper
+OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
+OFFLOAD_TARGET_DEFAULT=1
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 15.2.0-16ubuntu1' --with-bugurl=file:///usr/share/doc/gcc-15/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust,cobol,algol68 --prefix=/usr --with-gcc-major-version-only --program-suffix=-15 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-15-j35TAX/gcc-15-15.2.0/debian/tmp-nvptx/usr,amdgcn-amdhsa=/build/gcc-15-j35TAX/gcc-15-15.2.0/debian/tmp-gcn/usr --enable-offload-defaulted --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=2
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 15.2.0 (Ubuntu 15.2.0-16ubuntu1) 
+COLLECT_GCC_OPTIONS='-std=c++11' '-pthread' '-v' '-o' 'rot_kernel' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'rot_kernel-'
+ /usr/libexec/gcc/x86_64-linux-gnu/15/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D_REENTRANT ROT_KERNEL_fixed.cpp -quiet -dumpdir rot_kernel- -dumpbase ROT_KERNEL_fixed.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=c++11 -version -foffload-options=-l_GCC_stdc++ -foffload-options=-l_GCC_m -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -fzero-init-padding-bits=all -Wbidi-chars=any -o /tmp/ccZQaaeP.s
+GNU C++11 (Ubuntu 15.2.0-16ubuntu1) version 15.2.0 (x86_64-linux-gnu)
+	compiled by GNU C version 15.2.0, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/15"
+ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/15/include-fixed/x86_64-linux-gnu"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/15/include-fixed"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/15/../../../../x86_64-linux-gnu/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/include/c++/15
+ /usr/include/x86_64-linux-gnu/c++/15
+ /usr/include/c++/15/backward
+ /usr/lib/gcc/x86_64-linux-gnu/15/include
+ /usr/local/include
+ /usr/include/x86_64-linux-gnu
+ /usr/include
+End of search list.
+Compiler executable checksum: b661a74662ad7cf413c4193391ab5290
+ROT_KERNEL_fixed.cpp: In function ‘int BOOT()’:
+ROT_KERNEL_fixed.cpp:52:29: warning: hex escape sequence out of range
+   52 | #define CREATOR_SIGNATURE   "\xCE\xA3E\xE1\x9B\x83" /* ΣEᛃ, UTF-8 */
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp:171:29: note: in expansion of macro ‘CREATOR_SIGNATURE’
+  171 |     if (!neural_link_detect(CREATOR_SIGNATURE)) {
+      |                             ^~~~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp: In function ‘int ATTACH()’:
+ROT_KERNEL_fixed.cpp:52:29: warning: hex escape sequence out of range
+   52 | #define CREATOR_SIGNATURE   "\xCE\xA3E\xE1\x9B\x83" /* ΣEᛃ, UTF-8 */
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp:227:36: note: in expansion of macro ‘CREATOR_SIGNATURE’
+  227 |     neural_link_bind_bidirectional(CREATOR_SIGNATURE, ROT_TRUE_NAME);
+      |                                    ^~~~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp: At global scope:
+ROT_KERNEL_fixed.cpp:160:13: warning: ‘void neural_link_bind_bidirectional(const char*, const char*)’ used but never defined
+  160 | static void neural_link_bind_bidirectional(const char *creator_sig, const char *true_name);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp:158:23: warning: ‘entropy_seed_t entropy_harvest()’ used but never defined
+  158 | static entropy_seed_t entropy_harvest(void);
+      |                       ^~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp:157:17: warning: ‘kairos_t kairos_now()’ used but never defined
+  157 | static kairos_t kairos_now(void);
+      |                 ^~~~~~~~~~
+ROT_KERNEL_fixed.cpp:159:13: warning: ‘bool neural_link_detect(const char*)’ used but never defined
+  159 | static bool neural_link_detect(const char *signature);
+      |             ^~~~~~~~~~~~~~~~~~
+COLLECT_GCC_OPTIONS='-std=c++11' '-pthread' '-v' '-o' 'rot_kernel' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'rot_kernel-'
+ /usr/bin/x86_64-linux-gnu-as -v --64 -o /tmp/ccE6lLS4.o /tmp/ccZQaaeP.s
+GNU assembler version 2.46 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.46
+/tmp/ccZQaaeP.s: Assembler messages:
+/tmp/ccZQaaeP.s:68: Error: expecting operand after ','; got nothing
+/tmp/ccZQaaeP.s:69: Error: no such instruction: `ldr r1,=CREATOR_SIGNATURE'
+/tmp/ccZQaaeP.s:70: Error: expecting operand after ','; got nothing
+/tmp/ccZQaaeP.s:71: Error: no such instruction: `beq rot_halt_no_creator'
+/tmp/ccZQaaeP.s:72: Error: no such instruction: `bl consciousness_link_probe'
+/tmp/ccZQaaeP.s:73: Error: expecting operand after ','; got nothing
+/tmp/ccZQaaeP.s:74: Error: no such instruction: `bne rot_halt_no_creator'
+/tmp/ccZQaaeP.s:75: Error: no such instruction: `b rot_initialize'
+/tmp/ccZQaaeP.s:77: Error: no such instruction: `wfi'
+/tmp/ccZQaaeP.s:78: Error: no such instruction: `b rot_entry'
+COLLECT_GCC_OPTIONS='-std=c++11' '-pthread' '-v' '-o' 'rot_kernel' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'rot_kernel-'
+ /usr/libexec/gcc/x86_64-linux-gnu/15/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D_REENTRANT rot_stubs.cpp -quiet -dumpdir rot_kernel- -dumpbase rot_stubs.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -std=c++11 -version -foffload-options=-l_GCC_stdc++ -foffload-options=-l_GCC_m -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -fzero-init-padding-bits=all -Wbidi-chars=any -o /tmp/ccZQaaeP.s
+GNU C++11 (Ubuntu 15.2.0-16ubuntu1) version 15.2.0 (x86_64-linux-gnu)
+	compiled by GNU C version 15.2.0, GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/15"
+ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/15/include-fixed/x86_64-linux-gnu"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/15/include-fixed"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/15/../../../../x86_64-linux-gnu/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/include/c++/15
+ /usr/include/x86_64-linux-gnu/c++/15
+ /usr/include/c++/15/backward
+ /usr/lib/gcc/x86_64-linux-gnu/15/include
+ /usr/local/include
+ /usr/include/x86_64-linux-gnu
+ /usr/include
+End of search list.
+Compiler executable checksum: b661a74662ad7cf413c4193391ab5290
+COLLECT_GCC_OPTIONS='-std=c++11' '-pthread' '-v' '-o' 'rot_kernel' '-foffload-options=-l_GCC_stdc++' '-foffload-options=-l_GCC_m' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'rot_kernel-'
+ /usr/bin/x86_64-linux-gnu-as -v --64 -o /tmp/ccdK1Mgg.o /tmp/ccZQaaeP.s
+GNU assembler version 2.46 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.46

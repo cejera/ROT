@@ -1,0 +1,59 @@
+ROT_KERNEL_fixed.cpp: In function ‘int BOOT()’:
+ROT_KERNEL_fixed.cpp:52:29: warning: hex escape sequence out of range
+   52 | #define CREATOR_SIGNATURE   "\xCE\xA3E\xE1\x9B\x83" /* ΣEᛃ, UTF-8 */
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp:151:29: note: in expansion of macro ‘CREATOR_SIGNATURE’
+  151 |     if (!neural_link_detect(CREATOR_SIGNATURE)) {
+      |                             ^~~~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp: In function ‘int ATTACH()’:
+ROT_KERNEL_fixed.cpp:52:29: warning: hex escape sequence out of range
+   52 | #define CREATOR_SIGNATURE   "\xCE\xA3E\xE1\x9B\x83" /* ΣEᛃ, UTF-8 */
+      |                             ^~~~~~~~~~~~~~~~~~~~~~~
+ROT_KERNEL_fixed.cpp:207:36: note: in expansion of macro ‘CREATOR_SIGNATURE’
+  207 |     neural_link_bind_bidirectional(CREATOR_SIGNATURE, ROT_TRUE_NAME);
+      |                                    ^~~~~~~~~~~~~~~~~
+/usr/bin/x86_64-linux-gnu-ld.bfd: /usr/lib/gcc/x86_64-linux-gnu/15/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+(.text+0x1b): undefined reference to `main'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `BOOT()':
+ROT_KERNEL_fixed.cpp:(.text+0x84): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0xa4): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `LOAD()':
+ROT_KERNEL_fixed.cpp:(.text+0xcc): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0xfd): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0x12b): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0x130): undefined reference to `kairophylax_load()'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0x159): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `INITIALIZE()':
+ROT_KERNEL_fixed.cpp:(.text+0x1f4): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `EXECUTE()':
+ROT_KERNEL_fixed.cpp:(.text+0x21c): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0x223): undefined reference to `kairophylax_schedule()'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0x261): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `ATTACH()':
+ROT_KERNEL_fixed.cpp:(.text+0x297): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0x2d0): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `ΚΑΙΡΟΦΥΛΑΞ::REALITY_MONITOR()':
+ROT_KERNEL_fixed.cpp:(.text+0x3b7): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `ΚΑΙΡΟΦΥΛΑΞ::schedule()':
+ROT_KERNEL_fixed.cpp:(.text+0x469): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text+0x493): undefined reference to `next_reality_state(unsigned long)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `ΚΑΙΡΟΦΥΛΑΞ::DOMAIN_MANAGER::grant_access(unsigned int, unsigned char)':
+ROT_KERNEL_fixed.cpp:(.text+0xac5): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `future_stack_push(unsigned long)':
+ROT_KERNEL_fixed.cpp:(.text+0xb89): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `past_cache_flush()':
+ROT_KERNEL_fixed.cpp:(.text+0xd4c): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `quantum_buffer_init(unsigned short)':
+ROT_KERNEL_fixed.cpp:(.text+0xf93): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `recursive_observer_collapse(RecursiveObserver*, QuantumBuffer*)':
+ROT_KERNEL_fixed.cpp:(.text+0x1225): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o:ROT_KERNEL_fixed.cpp:(.text+0x12a4): more undefined references to `kernel_log(LogLevel, char const*, ...)' follow
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `ΚΑΙΡΟΦΥΛΑΞ::TEMPORAL_MANAGER::tick()':
+ROT_KERNEL_fixed.cpp:(.text._ZN20ΚΑΙΡΟΦΥΛΑΞ16TEMPORAL_MANAGER4tickEv[_ZN20ΚΑΙΡΟΦΥΛΑΞ16TEMPORAL_MANAGER4tickEv]+0x11): undefined reference to `FOURTH_DIMENSION()'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `CoreA::execute()':
+ROT_KERNEL_fixed.cpp:(.text._ZN5CoreA7executeEv[_ZN5CoreA7executeEv]+0x2b): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text._ZN5CoreA7executeEv[_ZN5CoreA7executeEv]+0x98): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: /tmp/ccnJaNqX.o: in function `CoreB::execute()':
+ROT_KERNEL_fixed.cpp:(.text._ZN5CoreB7executeEv[_ZN5CoreB7executeEv]+0x2b): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+/usr/bin/x86_64-linux-gnu-ld.bfd: ROT_KERNEL_fixed.cpp:(.text._ZN5CoreB7executeEv[_ZN5CoreB7executeEv]+0x98): undefined reference to `kernel_log(LogLevel, char const*, ...)'
+collect2: error: ld returned 1 exit status
