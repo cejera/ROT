@@ -1,37 +1,43 @@
-# Makefile para compilar o ROT Kernel e a biblioteca quântica
-# O kernel permanece intocado; a biblioteca fornece as implementações.
-# Uso: make && LD_PRELOAD=./librot_quantum.so ./rot_kernel
+# Makefile para compilar o ROT Kernel (fixed version)
+# Branch: ROT-Q
+# Uso: make clean && make
 
+CXX = g++
 CC = gcc
-CFLAGS = -Wall -O2 -fPIC
-LDFLAGS_KERNEL = -ldl -lpthread -lm
+CXXFLAGS = -std=c++11 -Wall -O2 -fPIC -pthread
+CFLAGS = -Wall -O2 -fPIC -pthread
+LDFLAGS = -ldl -lpthread -lm
 
 # Arquivos fonte
-KERNEL_SRC = ROT_KERNEL.c
-LIB_SRC = rot_runtime_quantum.c agents_cloud.c neural_link_bci.c librot_quantum.c
-LIB_OBJ = $(LIB_SRC:.c=.o)
+KERNEL_SRC = ROT_KERNEL_fixed.cpp
+SUPPORT_SRCS = kernel_log.c rot_missing_functions.c rot_main_entry.c
+SUPPORT_OBJS = $(SUPPORT_SRCS:.c=.o)
 
-# Targets
-all: rot_kernel librot_quantum.so
+# Target final
+TARGET = rot_kernel
 
-# Compila o kernel como executável independente
-rot_kernel: $(KERNEL_SRC)
-	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS_KERNEL)
+# Default target
+all: $(TARGET)
 
-# Compila a biblioteca dinâmica
-librot_quantum.so: $(LIB_OBJ)
-	$(CC) -shared -o $@ $^ -ldl -lm
+# Compila o kernel (C++)
+$(TARGET): $(KERNEL_SRC) $(SUPPORT_OBJS)
+	@echo "[CXX] Compilando kernel..."
+	$(CXX) $(CXXFLAGS) $(KERNEL_SRC) $(SUPPORT_OBJS) -o $(TARGET) $(LDFLAGS)
+	@echo "[OK] Kernel compilado: $(TARGET)"
 
-# Regra genérica para compilar os .c da biblioteca
-%.o: %.c rot_runtime_quantum.h agents_cloud.h neural_link_bci.h
+# Regra para compilar .c para .o
+%.o: %.c
+	@echo "[CC] Compilando $<..."
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpeza
 clean:
-	rm -f rot_kernel librot_quantum.so $(LIB_OBJ)
+	rm -f $(TARGET) $(SUPPORT_OBJS)
+	@echo "[OK] Limpeza completa"
 
-# Execução de exemplo (não obrigatório)
+# Execução
 run: all
-	LD_PRELOAD=./librot_quantum.so ./rot_kernel
+	./$(TARGET)
 
+# Phony targets
 .PHONY: all clean run
