@@ -1,0 +1,169 @@
+Descrição
+Este arquivo contém a versão adaptada do job azure-submit usado no workflow CI (.github/workflows/ci.yml) da branch ROT-Q. O objetivo é documentar e fornecer um script/guia reutilizável para submissão de jobs ao Azure Quantum de forma segura, incluindo verificações de secrets e exemplos de comandos.
+
+Aviso de segurança
+NÃO coloque credenciais em texto aberto.
+Configure os secrets no repositório: AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_CLIENT_SECRET, AZURE_SUBSCRIPTION_ID, AZURE_QUANTUM_WORKSPACE, AZURE_QUANTUM_RESOURCE_GROUP, AZURE_QUANTUM_LOCATION, AZURE_ENABLE_SUBMIT.
+Defina AZURE_ENABLE_SUBMIT = 'true' para ativar de fato o envio em CI. Até lá o passo permanece condicional e inativo.
+Pré-requisitos
+Ter instalado o Azure CLI (az) no runner/máquina local.
+Ter adicionado a extensão quantum do Azure CLI: az extension add --name quantum.
+Ter um Azure Quantum Workspace criado (resource group, workspace name e região).
+Ter um Service Principal com permissões e suas credenciais nos secrets.
+Condição no workflow
+O job do workflow está configurado com a condição:
+
+if: ${{ secrets.AZURE_ENABLE_SUBMIT == 'true' && secrets.AZURE_CLIENT_ID != '' }}
+
+Isto evita execuções não intencionais enquanto AZURE_ENABLE_SUBMIT estiver em 'false' ou ausente.
+
+Passo a passo (exemplo seguro dentro do job)
+1) Login com Service Principal (no job do GitHub Actions)
+az login --service-principal -u "
+A
+Z
+U
+R
+E
+C
+L
+I
+E
+N
+T
+I
+D
+"
+−
+p
+"
+AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID"
+
+2) Selecionar subscription
+az account set --subscription "$AZURE_SUBSCRIPTION_ID"
+
+3) Validar workspace (apenas para checar disponibilidade)
+az quantum workspace show -g "
+A
+Z
+U
+R
+E
+Q
+U
+A
+N
+T
+U
+M
+R
+E
+S
+O
+U
+R
+C
+E
+G
+R
+O
+U
+P
+"
+−
+n
+"
+AZURE_QUANTUM_WORKSPACE" --location "$AZURE_QUANTUM_LOCATION"
+
+4) Exemplo de submissão — placeholder (adapte ao seu provider e payload)
+- Submissão via CLI (exemplo genérico): a linha real depende do formato do job (Q# program, Python script, OpenQASM)
+- O comando abaixo é apenas ilustrativo e NÃO será executado automaticamente sem ajuste.
+az quantum job submit --workspace-name "$AZURE_QUANTUM_WORKSPACE"
+--resource-group "$AZURE_QUANTUM_RESOURCE_GROUP"
+--provider-id "quantum-simulator"
+--name "rot-smoke-job-$(date +%s)"
+--target "quantum-simulator"
+--input-data @job_payload.json
+
+Observação: para Q# / QDK você pode usar o Azure Quantum Python SDK ou a CLI com parâmetros específicos.
+Exemplo de job_payload.json (exemplo mínimo)
+{ "inputData": { "program": "// Q# or job descriptor goes here", "options": {} }, "metadata": { "purpose": "rot integration smoke", "trigger": "ci" } }
+
+Exemplo de submissão com Q# (linha de alto nível - adaptar)
+usando a CLI/SDK do QDK - exemplo ilustrativo
+az quantum job submit --workspace-name "$AZURE_QUANTUM_WORKSPACE"
+--resource-group "$AZURE_QUANTUM_RESOURCE_GROUP"
+--name "rot-qsharp-job"
+--target "microsoft.simulator"
+--entry-point "MyNamespace.MyOperation"
+--input-data @qsharp_inputs.json
+
+Boas práticas ao integrar provedores (Majorana 2 ou outros)
+Implementar uma camada adapter que converta a descrição do job do ROT em payloads específicos do provedor.
+Não alterar código do kernel para suportar provedores: mantenha a abstração em quantum_backend_api.h.
+Sempre testar em simuladores antes de submeter ao hardware real; inclua timeouts e monitoramento.
+Como usar localmente (passos)
+Exporte as variáveis de ambiente (somente para testes locais, NÃO compartilhe valores):
+export AZURE_CLIENT_ID="..." export AZURE_TENANT_ID="..." export AZURE_CLIENT_SECRET="..." export AZURE_SUBSCRIPTION_ID="..." export AZURE_QUANTUM_WORKSPACE="..." export AZURE_QUANTUM_RESOURCE_GROUP="..." export AZURE_QUANTUM_LOCATION="eastus"
+
+Login: az login --service-principal -u "
+A
+Z
+U
+R
+E
+C
+L
+I
+E
+N
+T
+I
+D
+"
+−
+p
+"
+AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID" az account set --subscription "$AZURE_SUBSCRIPTION_ID"
+
+Validar workspace: az quantum workspace show -g "
+A
+Z
+U
+R
+E
+Q
+U
+A
+N
+T
+U
+M
+R
+E
+S
+O
+U
+R
+C
+E
+G
+R
+O
+U
+P
+"
+−
+n
+"
+AZURE_QUANTUM_WORKSPACE" --location "$AZURE_QUANTUM_LOCATION"
+
+Preparar job_payload.json (veja exemplo acima) e submeter via az quantum job submit (adaptando provider/target)
+
+Logs e monitoramento
+Use az quantum job show --id <job-id> para inspecionar o status.
+Use az quantum job list --workspace-name ... para ver jobs recentes.
+Configure polling/timeout no CI para evitar jobs pendentes indefinidamente.
+Notas finais
+Este arquivo é apenas um guia e script ilustrativo. Adapte-o ao formato exigido pelo provedor do backend quântico escolhido (Majorana 2 quando disponível) e valide com documentação oficial do provedor.
+Quando pronto para submissão real, defina AZURE_ENABLE_SUBMIT = 'true' e verifique/atualize os secrets com credenciais válidas.
