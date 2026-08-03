@@ -1,5 +1,3 @@
-+name: CI - build and test + +on:
-
 push:
 branches: [ ROT-Q ]
 pull_request:
