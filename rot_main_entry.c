@@ -11,12 +11,12 @@ int main(int argc, char *argv[]) {
     (void)argc;
     (void)argv;
     
-    printf("=== ROT KERNEL BOOTSTRAP ===\n");
+    printf("=== ROT KERNEL BOOTSTRAP ===");
     printf("Iniciando ΚAIΡΟΦΥΛΑΞ...\n\n");
     
     int result = rot_main();
     
-    printf("\n=== ROT EXECUTION COMPLETE ===\n");
+    printf("\n=== ROT EXECUTION COMPLETE ===");
     printf("Exit code: %d\n", result);
     
     return result;
